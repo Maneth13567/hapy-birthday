@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Happy Birthday Sandini</title>
+  <style>
+    :root{
+      --bg:#f2f9ff;
+      --card:#ffffff;
+      --accent:#ff6b81;
+      --muted:#6b7280;
+      --shadow: 0 8px 30px rgba(15,23,42,0.08);
+    }
+    *{box-sizing:border-box;font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial}
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,#eaf6ff 0%,var(--bg) 100%);overflow:hidden;}
+    .stage{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+
+    .card{width:100%;max-width:780px;background:var(--card);border-radius:18px;padding:24px;display:flex;flex-direction:column;gap:20px;align-items:center;box-shadow:var(--shadow);position:relative;overflow:hidden;text-align:center}
+
+    .photo{width:200px;height:200px;border-radius:18px;background:#f6fbff;overflow:hidden;border:6px solid rgba(255,255,255,0.7);box-shadow:0 10px 30px rgba(20,40,80,0.06);margin-bottom:10px}
+    .photo img{width:100%;height:100%;object-fit:cover;display:block}
+
+    h1{margin:0;font-size:26px;color:#0f172a}
+    .sub{color:var(--muted);margin:6px 0 16px 0}
+    .text{font-size:16px;line-height:1.6;color:#0b1220;padding:12px;border-radius:12px}
+    .signature{margin-top:12px;color:var(--muted);font-weight:600}
+
+    /* balloons */
+    .balloons{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+    .balloon{position:absolute;top:-120px;width:48px;height:64px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;opacity:0.95}
+    .thread{position:absolute;top:100%;left:50%;width:2px;height:40px;background:rgba(0,0,0,0.2);transform:translateX(-50%)}
+
+    @keyframes fallDown{
+      0%{transform:translateY(-120px) rotateZ(0)}
+      100%{transform:translateY(120vh) rotateZ(360deg)}
+    }
+
+    /* stars */
+    .stars{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:1}
+    .star{position:absolute;color:gold;font-size:18px;opacity:0.8;animation:twinkle 2s infinite ease-in-out}
+    @keyframes twinkle{
+      0%,100%{opacity:0.2;transform:scale(0.8)}
+      50%{opacity:1;transform:scale(1.2)}
+    }
+
+    /* confetti emoji 🎉 */
+    .confetti{position:absolute;font-size:24px;animation:pop 1s ease forwards;}
+    @keyframes pop{
+      0%{transform:scale(0) rotate(-180deg);opacity:0}
+      50%{transform:scale(1.3) rotate(20deg);opacity:1}
+      100%{transform:scale(1) rotate(0);opacity:1}
+    }
+
+    /* responsive */
+    @media (max-width:600px){
+      .card{padding:16px}
+      h1{font-size:22px}
+      .text{font-size:15px}
+      .photo{width:160px;height:160px}
+    }
+  </style>
+</head>
+<body>
+  <div class="stage">
+    <div class="card" role="article" aria-label="Birthday card">
+      <div class="photo">
+        <img src="IMG-20220915-WA00061.jpg" alt="Her photo">
+      </div>
+      <h1>Dear Sandini,</h1>
+      <div class="sub">Happy 18th Birthday 🎉 A new chapter begins today!</div>
+      <div class="text">
+        From laughter to little fights, our bond means so much to me 💖. Thank you for being a wonderful part of my life and for the memories we share 🌸. I hope this special day marks the start of a bright journey filled with happiness, love, and success ✨💫.
+        <br><br>
+        Wishing you the best of everything on your 18+ level up birthday 🥂🎂❤
+      </div>
+      <div class="signature">By, Your Friend🥳</div>
+      <div class="balloons" id="balloons"></div>
+      <div class="stars" id="stars"></div>
+    </div>
+  </div>
+
+  <script>
+    // Balloons falling
+    const colors = ['#FF6B81', '#FFB86B', '#FFD86B', '#7BD389', '#87CEEB', '#C38CFF'];
+    const balloonsContainer = document.getElementById('balloons');
+
+    function makeBalloon(){
+      const b = document.createElement('div');
+      b.className = 'balloon';
+      const size = 30 + Math.random()*40;
+      b.style.width = size+'px';
+      b.style.height = size*1.3+'px';
+      b.style.left = Math.random()*100+'%';
+      b.style.background = colors[Math.floor(Math.random()*colors.length)];
+      b.style.animation = `fallDown ${8+Math.random()*6}s linear`; 
+      const thread = document.createElement('div');
+      thread.className='thread';
+      b.appendChild(thread);
+      balloonsContainer.appendChild(b);
+      setTimeout(()=>b.remove(),14000);
+    }
+    setInterval(makeBalloon,500);
+
+    // Stars twinkling
+    const starsContainer = document.getElementById('stars');
+    function makeStar(){
+      const s=document.createElement('div');
+      s.className='star';
+      s.textContent='✦';
+      s.style.left=Math.random()*100+'%';
+      s.style.top=Math.random()*100+'%';
+      starsContainer.appendChild(s);
+      setTimeout(()=>s.remove(),4000);
+    }
+    setInterval(makeStar,700);
+
+    // Confetti pop 🎉
+    function confetti(){
+      const c=document.createElement('div');
+      c.className='confetti';
+      c.textContent='🎉';
+      c.style.left=Math.random()*90+'%';
+      c.style.top=Math.random()*90+'%';
+      document.body.appendChild(c);
+      setTimeout(()=>c.remove(),2000);
+    }
+    setInterval(confetti,3000);
+  </script>
+</body>
+</html>
